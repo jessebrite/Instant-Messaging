@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const IM = mongoose.model('Messenger');
+// const IM = mongoose.model('Messenger');
 
 const findAll = async (req, res) => {
   try {
