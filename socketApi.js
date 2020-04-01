@@ -6,8 +6,7 @@ socketApi.io = io;
 
 io.on('connection', function(socket) {
   socket.on('chat message', function(msg) {
-    console.log(`${msg.name}: ${msg.message}`);
-    io.emit('chat message', msg)
+    // io.emit('chat message', msg)
   });
 });
 

@@ -1,28 +1,19 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
 
-  .row
-    .col-xs-12.col-md-8
-      .container-fluid
-        form#addReview.form-horizontal(action='' method='POST' role='form')
-          //- - if (error == 'val')
-              .alert.alert-danger(role='alert') All fields required. Please try again
-                button.close(type='button' data-dismiss='alert' aria-label='Close')
-                  span(aria-hidden='true') &times;
-          .form-group.row
-            label.col-xs-10.col-sm-2.control-label(for="name") Name
-            .col-xs-12.col-sm-10
-              input#name.form-control(name="name")
-          .form-group.row
-            label.col-sm-2.control-label(for="message") Message
-            .col-sm-10
-              textarea#message.form-control(name="message", rows="5")
-          button#send.btn.btn-primary.float-right Send
+  .container-fluid
+    .row
+      .col-sm-12.col-md-8
+        h1.h1= title
+        ul#messages
 
-          ul#messages
+        .fixed-bottom
+          form.form-horizontal(action='' method='POST' role='form')
+            .form-group.row
+              .col-sm-12.col-md-8
+                input#message.form-control(name='message' autocomplete='off' autofocus)
+              button#submit.btn.btn-success(disabled) Send
       .col-12-col.md-4
 
 

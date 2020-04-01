@@ -1,24 +1,48 @@
-$(function () {
-  let socket = io();
-  $('form').submit(function(e) {
-    e.preventDefault();
-    socket.emit('chat message', // $('#message').val()
-     { name: $('#name').val(), message: $('#message').val() }
-     );
-    $('#name').val('');
-    $('#message').val('');
-    return false;
-  });
-  // socket.on('chat message', function(msg){
-  //   $('#messages').append($('<li>').text(msg));
-  //   console.log(msg)
-  //   $('#tings').innerHTML = msg;
-  //   const li = document.createElement("li");
-  //   li.innerHTML = msg;
-  //   $('#messages').appendChild(li)
-  // });
+const form = document.querySelector('form');
+const input = document.querySelector('#message');
+const messages = document.querySelector('#messages');
+const username = prompt('Please enter a username: ', '');
+// const username = 'Jeff';
+const submit = document.querySelector('#submit');
 
-  // socket.on('chat message', function(msg){
-  //   $('#messages').append($('<li>').text(`${msg.name}: ${msg.message}`));
-  // });
+const enter = document.addEventListener('keyup', function() {
+  if (input.value.trim() !== '') {
+    submit.disabled = false;
+  } else {
+    submit.disabled = true;
+  }
 });
+
+form.addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  enter;
+
+  addMessage(username + ": " + input.value);
+  socket.emit("chat message", { message: input.value });
+
+  input.value = '';
+  return false;
+}, false);
+
+socket.on('chat message', function(msg) {
+  addMessage(msg.username + ": " + msg.message);
+});
+
+socket.on('user join', function(msg) {
+  addMessage(msg + ' joined the chat')
+});
+
+socket.on('user left', function(msg) {
+  addMessage(msg + ' left the chat')
+});
+
+addMessage(username  + ' joined');
+socket.emit("user join", username)
+
+function addMessage(message) {
+  const li = document.createElement('li');
+  li.innerHTML = message;
+  messages.appendChild(li);
+  window.scrollTo(0, document.body.scrollHeight);
+}
