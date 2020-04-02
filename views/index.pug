@@ -11,13 +11,14 @@ block content
         .fixed-bottom
           form.form-horizontal(action='' method='POST' role='form')
             .form-group.row
-              .col-sm-12.col-md-8
+              .col-sm-10
                 input#message.form-control(name='message' autocomplete='off' autofocus)
-              button#submit.btn.btn-success(disabled) Send
+              .col-sm-2
+                button#submit.btn.btn-success(disabled) Send
       .col-12-col.md-4
 
 
   script(src='/socket.io/socket.io.js')
   script.
-    var socket = io();
+    const socket = io();
   script(src='/javascripts/socket-event.js')
